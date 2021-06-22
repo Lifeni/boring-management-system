@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Preinstall SQL" type="DatabaseScript" editBeforeRun="true">
+    <script-file value="$PROJECT_DIR$/build/preinstall.sql" />
+    <script-mode>FILE</script-mode>
+    <data-source id="76387f83-f3d1-41ce-a16b-c45746aad03b" namespace="schema/&quot;bms&quot;" />
+    <method v="2" />
+  </configuration>
+</component>
