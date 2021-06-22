@@ -1,4 +1,4 @@
-package app.lifeni.bms.entity;
+package app.lifeni.bms.entity.model;
 
 public class User {
 

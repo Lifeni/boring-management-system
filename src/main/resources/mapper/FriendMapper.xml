@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="app.lifeni.bms.dao.FriendDao">
-
-    <select id="getFriend" resultType="app.lifeni.bms.entity.Friend">
-        select *
-        from test
-    </select>
-</mapper>

@@ -1,8 +1,8 @@
 package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.AuthDao;
-import app.lifeni.bms.entity.request.LoginRequest;
-import app.lifeni.bms.entity.response.LoginResponse;
+import app.lifeni.bms.entity.api.request.LoginRequest;
+import app.lifeni.bms.entity.api.response.LoginResponse;
 import app.lifeni.bms.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,8 @@
 package app.lifeni.bms.controller;
 
-import app.lifeni.bms.entity.Message;
+import app.lifeni.bms.entity.api.request.LoginRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
-import app.lifeni.bms.entity.request.LoginRequest;
 import app.lifeni.bms.service.AuthService;
 import app.lifeni.bms.utils.ToJSON;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,10 +37,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public Message logout(HttpServletRequest request, HttpServletResponse response) {
-        var message = new Message();
-        message.setMessage("注销成功");
+    public JsonNode logout(HttpServletRequest request, HttpServletResponse response) {
+        var message = new BaseMessage("注销成功");
         response.setStatus(205);
-        return message;
+        return new ToJSON().t(message);
     }
 }

@@ -1,4 +1,4 @@
-package app.lifeni.bms.entity.response;
+package app.lifeni.bms.entity.api.response;
 
 public class LoginResponse {
     private long userId;

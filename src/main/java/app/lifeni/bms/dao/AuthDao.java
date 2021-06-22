@@ -1,6 +1,6 @@
 package app.lifeni.bms.dao;
 
-import app.lifeni.bms.entity.User;
+import app.lifeni.bms.entity.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

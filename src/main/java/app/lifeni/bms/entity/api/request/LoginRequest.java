@@ -1,4 +1,4 @@
-package app.lifeni.bms.entity.request;
+package app.lifeni.bms.entity.api.request;
 
 public class LoginRequest {
     private String username;
