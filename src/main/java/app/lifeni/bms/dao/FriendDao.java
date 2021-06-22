@@ -1,6 +1,6 @@
-package app.lifeni.bms.mapper;
+package app.lifeni.bms.dao;
 
-import app.lifeni.bms.po.Friend;
+import app.lifeni.bms.entity.Friend;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface FriendMapper {
+public interface FriendDao {
     List<Friend> getFriend();
 }

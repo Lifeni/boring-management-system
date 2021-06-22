@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("app.lifeni.bms.mapper")
+@MapperScan("app.lifeni.bms.dao")
 public class BoringManagementSystemApplication {
 
     public static void main(String[] args) {
