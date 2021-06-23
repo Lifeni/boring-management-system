@@ -1,6 +1,7 @@
 package app.lifeni.bms.controller;
 
 import app.lifeni.bms.entity.api.request.LoginRequest;
+import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.service.AuthService;
@@ -24,6 +25,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public JsonNode login(@RequestBody LoginRequest payload, HttpServletRequest request, HttpServletResponse response) {
+        // TODO: 登录逻辑
+
         var result = authService.authLogin(payload);
         if (result != null) {
             var message = new DataMessage("登录成功", result);
@@ -38,8 +41,24 @@ public class AuthController {
 
     @PostMapping("/logout")
     public JsonNode logout(HttpServletRequest request, HttpServletResponse response) {
+        // TODO: 注销逻辑
+
         var message = new BaseMessage("注销成功");
         response.setStatus(205);
+        return new ToJSON().t(message);
+    }
+
+    @PostMapping("/reset-password")
+    public JsonNode resetPassword(@RequestBody ResetPasswordRequest payload, HttpServletRequest request, HttpServletResponse response) {
+        var result = authService.authResetPassword(payload);
+        if (result) {
+            var message = new BaseMessage("重置密码成功");
+            response.setStatus(200);
+            return new ToJSON().t(message);
+        }
+
+        var message = new BaseMessage("重置密码失败");
+        response.setStatus(401);
         return new ToJSON().t(message);
     }
 }

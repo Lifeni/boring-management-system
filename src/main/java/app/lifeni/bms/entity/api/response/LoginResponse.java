@@ -3,10 +3,20 @@ package app.lifeni.bms.entity.api.response;
 public class LoginResponse {
     private long userId;
     private long role;
+    private String userName;
 
-    public LoginResponse(long userId, long role) {
+    public LoginResponse(long userId, long role, String userName) {
         this.userId = userId;
         this.role = role;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public long getUserId() {

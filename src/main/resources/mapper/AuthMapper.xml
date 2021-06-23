@@ -2,10 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.lifeni.bms.dao.AuthDao">
 
-    <select id="verifyUser" resultType="app.lifeni.bms.entity.model.User">
+    <select id="verifyUserByName" resultType="app.lifeni.bms.entity.model.User">
         select *
         from `user-login`
         where username = #{username}
           AND password = #{password}
     </select>
+
+    <select id="verifyUserById" resultType="app.lifeni.bms.entity.model.User">
+        select *
+        from `user-login`
+        where userId = #{userId}
+          AND password = #{password}
+    </select>
+
+    <update id="resetUserPasswordById">
+        update `user-login`
+        set password = #{newPassword}
+        where userId = #{userId}
+          AND password = #{oldPassword}
+    </update>
 </mapper>
