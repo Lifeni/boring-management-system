@@ -10,7 +10,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Calendar;
 import java.util.Map;
 
-public abstract class JWTUtil {
+public class JWTUtil {
     private static final String ISSUER = "boring-management-system";
     private static final String KEY = "123456";
 
@@ -18,7 +18,7 @@ public abstract class JWTUtil {
         try {
             var algorithm = Algorithm.HMAC256(KEY);
             var instance = Calendar.getInstance();
-            instance.add(Calendar.SECOND, 10 * 60);
+            instance.add(Calendar.SECOND, Constants.EXPIRES);
 
             return JWT.create()
                     .withIssuer(ISSUER)

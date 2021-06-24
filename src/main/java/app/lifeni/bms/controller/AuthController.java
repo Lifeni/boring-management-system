@@ -5,6 +5,7 @@ import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.service.AuthService;
+import app.lifeni.bms.utils.Constants;
 import app.lifeni.bms.utils.JWTUtil;
 import app.lifeni.bms.utils.ToJSON;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -55,13 +56,16 @@ public class AuthController {
             var message = new DataMessage("登录成功", result);
 
             var map = new HashMap<String, Object>();
+            map.put("name", result.getUserName());
             map.put("id", result.getUserId());
+            map.put("role", result.getRole());
 
             var token = JWTUtil.createToken(map);
 
             var cookie = new Cookie("token", token);
-            cookie.setMaxAge(10 * 60);
+            cookie.setMaxAge(Constants.EXPIRES);
             cookie.setHttpOnly(true);
+            cookie.setPath("/");
 
             response.addCookie(cookie);
             response.setStatus(200);
