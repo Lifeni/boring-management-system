@@ -9,11 +9,10 @@
           AND password = #{password}
     </select>
 
-    <select id="verifyUserById" resultType="app.lifeni.bms.entity.model.User">
+    <select id="queryUserById" resultType="app.lifeni.bms.entity.model.User">
         select *
         from `user-login`
         where userId = #{userId}
-          AND password = #{password}
     </select>
 
     <update id="resetUserPasswordById">

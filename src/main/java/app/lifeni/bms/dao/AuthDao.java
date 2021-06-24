@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface AuthDao {
     User verifyUserByName(@Param("username") String username, @Param("password") String password);
 
-    User verifyUserById(@Param("userId") long userId, @Param("password") String oldPassword);
+    User queryUserById(@Param("userId") long userId);
 
     int resetUserPasswordById(@Param("userId") long userId, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
 }

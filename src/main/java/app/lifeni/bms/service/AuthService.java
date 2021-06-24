@@ -2,12 +2,15 @@ package app.lifeni.bms.service;
 
 import app.lifeni.bms.entity.api.request.LoginRequest;
 import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
-import app.lifeni.bms.entity.api.response.LoginResponse;
+import app.lifeni.bms.entity.api.response.UserInfoResponse;
 
 public interface AuthService {
-    LoginResponse authLogin(LoginRequest payload);
+    UserInfoResponse authLogin(LoginRequest payload);
+
+    UserInfoResponse authQueryUser(long userId);
 
     boolean authResetPassword(ResetPasswordRequest payload);
+
 }
 
 

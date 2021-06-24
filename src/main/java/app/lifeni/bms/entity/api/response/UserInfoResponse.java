@@ -1,11 +1,11 @@
 package app.lifeni.bms.entity.api.response;
 
-public class LoginResponse {
+public class UserInfoResponse {
     private long userId;
     private long role;
     private String userName;
 
-    public LoginResponse(long userId, long role, String userName) {
+    public UserInfoResponse(long userId, long role, String userName) {
         this.userId = userId;
         this.role = role;
         this.userName = userName;
