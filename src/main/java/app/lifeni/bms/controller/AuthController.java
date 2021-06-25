@@ -6,8 +6,9 @@ import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.service.AuthService;
 import app.lifeni.bms.utils.Constants;
-import app.lifeni.bms.utils.JWTUtil;
-import app.lifeni.bms.utils.ToJSON;
+import app.lifeni.bms.utils.CookiesUtils;
+import app.lifeni.bms.utils.JSON;
+import app.lifeni.bms.utils.JWTUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.HashMap;
 
 @RestController
@@ -27,25 +27,25 @@ public class AuthController {
 
     @GetMapping("/")
     public JsonNode hello(HttpServletRequest request, HttpServletResponse response) {
-        var id = verify(request);
+        var id = CookiesUtils.verifyReturnId(request);
         if (id != -1) {
             try {
                 var result = authService.authQueryUser(id);
                 var message = new DataMessage("认证通过", result);
 
                 response.setStatus(200);
-                return new ToJSON().t(message);
+                return JSON.t(message);
             } catch (Exception exception) {
                 var message = new BaseMessage("服务器出错");
 
                 response.setStatus(500);
-                return new ToJSON().t(message);
+                return JSON.t(message);
             }
         } else {
             var message = new BaseMessage("登录失效");
 
             response.setStatus(403);
-            return new ToJSON().t(message);
+            return JSON.t(message);
         }
     }
 
@@ -60,7 +60,7 @@ public class AuthController {
             map.put("id", result.getUserId());
             map.put("role", result.getRole());
 
-            var token = JWTUtil.createToken(map);
+            var token = JWTUtils.createToken(map);
 
             var cookie = new Cookie("token", token);
             cookie.setMaxAge(Constants.EXPIRES);
@@ -70,12 +70,12 @@ public class AuthController {
             response.addCookie(cookie);
             response.setStatus(200);
 
-            return new ToJSON().t(message);
+            return JSON.t(message);
         }
 
         var message = new BaseMessage("登录失败");
         response.setStatus(401);
-        return new ToJSON().t(message);
+        return JSON.t(message);
     }
 
     @PostMapping("/logout")
@@ -94,27 +94,13 @@ public class AuthController {
         if (result) {
             var message = new BaseMessage("重置密码成功");
             response.setStatus(200);
-            return new ToJSON().t(message);
+            return JSON.t(message);
         }
 
         var message = new BaseMessage("重置密码失败");
         response.setStatus(401);
-        return new ToJSON().t(message);
+        return JSON.t(message);
     }
 
-    private long verify(HttpServletRequest request) {
-        var cookies = request.getCookies();
 
-        if (cookies != null) {
-            var token = Arrays.stream(cookies)
-                    .filter(cookie -> cookie.getName().equals("token")).findFirst();
-            if (token.isPresent()) {
-                var jwt = JWTUtil.verifyToken(token.get().getValue());
-                if (jwt != null) {
-                    return jwt.getClaim("id").asLong();
-                }
-            }
-        }
-        return -1;
-    }
 }

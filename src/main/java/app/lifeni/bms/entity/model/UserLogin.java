@@ -1,6 +1,6 @@
 package app.lifeni.bms.entity.model;
 
-public class User {
+public class UserLogin {
 
     private long userId;
     private String userName;

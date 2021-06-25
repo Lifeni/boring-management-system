@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.lifeni.bms.dao.StudentDao">
+
+    <select id="queryAllStudents" resultType="app.lifeni.bms.entity.model.Student">
+        select *
+        from `student`
+    </select>
+
+    <delete id="deleteStudent">
+        delete
+        from `student`
+        where userId = #{userId}
+    </delete>
+</mapper>
