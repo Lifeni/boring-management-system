@@ -1,6 +1,7 @@
 package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.UserDao;
+import app.lifeni.bms.entity.api.request.ResetPasswordByAdminRequest;
 import app.lifeni.bms.entity.api.response.UserInfoResponse;
 import app.lifeni.bms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,12 @@ public class UserServiceImpl implements UserService {
             }).toList();
         }
         return null;
+    }
+
+    @Override
+    public boolean resetPasswordByAdmin(long userId, ResetPasswordByAdminRequest payload) {
+        var password = payload.getPassword();
+        var user = userDao.resetPasswordByAdmin(userId, password);
+        return user > 0;
     }
 }

@@ -82,9 +82,10 @@ public class AuthController {
     public void logout(HttpServletResponse response) {
         var cookie = new Cookie("token", null);
         cookie.setMaxAge(0);
+        cookie.setPath("/");
 
-        response.setStatus(205);
         response.addCookie(cookie);
+        response.setStatus(205);
     }
 
     @PostMapping("/reset-password")

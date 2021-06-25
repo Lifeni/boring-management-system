@@ -6,4 +6,10 @@
         select *
         from `user-login`
     </select>
+
+    <update id="resetPasswordByAdmin">
+        update `user-login`
+        set password = #{password}
+        where userId = #{userId}
+    </update>
 </mapper>
