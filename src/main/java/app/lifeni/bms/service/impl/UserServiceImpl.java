@@ -33,7 +33,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean resetPasswordByAdmin(long userId, ResetPasswordByAdminRequest payload) {
         var password = payload.getPassword();
-        var user = userDao.resetPasswordByAdmin(userId, password);
-        return user > 0;
+        var result = userDao.resetPasswordByAdmin(userId, password);
+        return result > 0;
+    }
+
+    @Override
+    public boolean deleteUser(long userId) {
+        var result = userDao.deleteUser(userId);
+        return result > 0;
     }
 }

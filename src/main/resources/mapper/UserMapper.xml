@@ -12,4 +12,10 @@
         set password = #{password}
         where userId = #{userId}
     </update>
+
+    <delete id="deleteUser">
+        delete
+        from `user-login`
+        where userId = #{userId}
+    </delete>
 </mapper>

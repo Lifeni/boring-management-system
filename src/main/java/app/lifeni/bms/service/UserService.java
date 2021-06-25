@@ -9,4 +9,6 @@ public interface UserService {
     List<UserInfoResponse> queryAllUsers();
 
     boolean resetPasswordByAdmin(long userId, ResetPasswordByAdminRequest password);
+
+    boolean deleteUser(long userId);
 }

@@ -42,12 +42,38 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/reset-password")
-    public JsonNode resetPassword(@PathVariable("userId") long userId, @RequestBody ResetPasswordByAdminRequest payload, HttpServletRequest request, HttpServletResponse response) {
+    public JsonNode resetUserPassword(@PathVariable("userId") long userId, @RequestBody ResetPasswordByAdminRequest payload, HttpServletRequest request, HttpServletResponse response) {
         var role = verify(request);
         if (role == 0) {
             var result = userService.resetPasswordByAdmin(userId, payload);
             if (result) {
                 var message = new BaseMessage("重置密码成功");
+                response.setStatus(200);
+                return new ToJSON().t(message);
+            }
+
+            var message = new BaseMessage("服务器出错");
+            response.setStatus(500);
+            return new ToJSON().t(message);
+
+        } else if (role == -1) {
+            var message = new BaseMessage("身份认证失效");
+            response.setStatus(401);
+            return new ToJSON().t(message);
+        }
+
+        var message = new BaseMessage("身份验证失败");
+        response.setStatus(403);
+        return new ToJSON().t(message);
+    }
+
+    @DeleteMapping("/{userId}")
+    public JsonNode deleteUser(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+        var role = verify(request);
+        if (role == 0) {
+            var result = userService.deleteUser(userId);
+            if (result) {
+                var message = new BaseMessage("删除用户成功");
                 response.setStatus(200);
                 return new ToJSON().t(message);
             }

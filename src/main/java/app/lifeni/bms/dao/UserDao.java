@@ -13,4 +13,6 @@ public interface UserDao {
     List<User> queryAllUsers();
 
     int resetPasswordByAdmin(@Param("userId") long userId, @Param("password") String password);
+
+    int deleteUser(@Param("userId") long userId);
 }
