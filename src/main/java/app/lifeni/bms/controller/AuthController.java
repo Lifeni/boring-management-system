@@ -44,7 +44,7 @@ public class AuthController {
         } else {
             var message = new BaseMessage("登录失效");
 
-            response.setStatus(403);
+            response.setStatus(401);
             return JSON.t(message);
         }
     }

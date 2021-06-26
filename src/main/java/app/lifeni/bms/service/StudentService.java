@@ -1,9 +1,9 @@
 package app.lifeni.bms.service;
 
-import app.lifeni.bms.entity.model.Student;
+import app.lifeni.bms.entity.api.response.StudentInfoResponse;
 
 import java.util.List;
 
 public interface StudentService {
-    List<Student> queryAllStudents();
+    List<StudentInfoResponse> queryAllStudents();
 }
