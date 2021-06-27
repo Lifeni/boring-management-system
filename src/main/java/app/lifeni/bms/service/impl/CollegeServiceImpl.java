@@ -17,4 +17,9 @@ public class CollegeServiceImpl implements CollegeService {
     public List<College> queryAllColleges() {
         return collegeDao.queryAllColleges();
     }
+
+    @Override
+    public String queryCollegeById(long collegeId) {
+        return collegeDao.queryCollegeById(collegeId).getCollegeName();
+    }
 }

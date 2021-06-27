@@ -58,7 +58,7 @@ public class AuthController {
             var map = new HashMap<String, Object>();
             map.put("name", result.getUserName());
             map.put("id", result.getUserId());
-            map.put("role", result.getRole());
+            map.put("role", result.getRoleId());
 
             var token = JWTUtils.createToken(map);
 
@@ -101,6 +101,4 @@ public class AuthController {
         response.setStatus(401);
         return JSON.t(message);
     }
-
-
 }

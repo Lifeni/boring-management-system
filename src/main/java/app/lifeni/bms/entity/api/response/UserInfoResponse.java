@@ -2,13 +2,24 @@ package app.lifeni.bms.entity.api.response;
 
 public class UserInfoResponse {
     private long userId;
-    private long role;
+    private long roleId;
     private String userName;
+    private String roleName;
 
-    public UserInfoResponse(long userId, long role, String userName) {
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
         this.userId = userId;
-        this.role = role;
-        this.userName = userName;
+    }
+
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 
     public String getUserName() {
@@ -19,19 +30,18 @@ public class UserInfoResponse {
         this.userName = userName;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setUserId(long userId) {
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public UserInfoResponse(long userId, long roleId, String userName, String roleName) {
         this.userId = userId;
-    }
-
-    public long getRole() {
-        return role;
-    }
-
-    public void setRole(long role) {
-        this.role = role;
+        this.roleId = roleId;
+        this.userName = userName;
+        this.roleName = roleName;
     }
 }

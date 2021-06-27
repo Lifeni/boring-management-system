@@ -1,6 +1,7 @@
 package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.AuthDao;
+import app.lifeni.bms.dao.RoleDao;
 import app.lifeni.bms.entity.api.request.LoginRequest;
 import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
 import app.lifeni.bms.entity.api.response.UserInfoResponse;
@@ -14,6 +15,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthDao authDao;
 
+    @Autowired
+    RoleDao roleDao;
+
     @Override
     public UserInfoResponse authLogin(LoginRequest payload) {
         var username = payload.getUsername();
@@ -23,9 +27,11 @@ public class AuthServiceImpl implements AuthService {
 
         if (user != null) {
             var userId = user.getUserId();
-            var role = user.getRole();
+            var roleId = user.getRole();
             var userName = user.getUserName();
-            return new UserInfoResponse(userId, role, userName);
+            var roleName = roleDao.queryRoleById(roleId).getRoleName();
+
+            return new UserInfoResponse(userId, roleId, userName, roleName);
         }
         return null;
     }
@@ -35,9 +41,11 @@ public class AuthServiceImpl implements AuthService {
         var user = authDao.queryUserById(userId);
 
         if (user != null) {
-            var role = user.getRole();
+            var roleId = user.getRole();
             var userName = user.getUserName();
-            return new UserInfoResponse(userId, role, userName);
+            var roleName = roleDao.queryRoleById(roleId).getRoleName();
+
+            return new UserInfoResponse(userId, roleId, userName, roleName);
         }
         return null;
     }

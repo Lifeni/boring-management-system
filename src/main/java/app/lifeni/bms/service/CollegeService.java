@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CollegeService {
     List<College> queryAllColleges();
+
+    String queryCollegeById(long collegeId);
 }

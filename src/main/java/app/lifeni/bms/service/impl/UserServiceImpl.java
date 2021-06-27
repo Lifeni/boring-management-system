@@ -1,5 +1,6 @@
 package app.lifeni.bms.service.impl;
 
+import app.lifeni.bms.dao.RoleDao;
 import app.lifeni.bms.dao.UserDao;
 import app.lifeni.bms.entity.api.request.ResetPasswordByAdminRequest;
 import app.lifeni.bms.entity.api.response.UserInfoResponse;
@@ -15,16 +16,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    RoleDao roleDao;
+
     @Override
     public List<UserInfoResponse> queryAllUsers() {
         var users = userDao.queryAllUsers();
+        var roles = roleDao.queryAllRoles();
 
         if (users != null) {
             return users.stream().map(user -> {
-                var userId = user.getUserId();
-                var role = user.getRole();
-                var userName = user.getUserName();
-                return new UserInfoResponse(userId, role, userName);
+                var roleName = roles.stream()
+                        .filter(role -> role.getRoleId() == user.getRole())
+                        .findFirst();
+
+                if (roleName.isPresent()) {
+                    var name = roleName.get().getRoleName();
+                    return new UserInfoResponse(user.getUserId(), user.getRole(), user.getUserName(), name);
+                }
+
+                return null;
             }).toList();
         }
         return null;

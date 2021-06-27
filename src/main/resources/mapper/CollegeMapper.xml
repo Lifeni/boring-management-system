@@ -7,4 +7,10 @@
         from `college`
     </select>
 
+    <select id="queryCollegeById" resultType="app.lifeni.bms.entity.model.College">
+        select *
+        from `college`
+        where collegeId = #{collegeId}
+    </select>
+
 </mapper>

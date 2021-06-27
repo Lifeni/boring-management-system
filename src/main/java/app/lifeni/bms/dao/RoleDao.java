@@ -1,6 +1,6 @@
 package app.lifeni.bms.dao;
 
-import app.lifeni.bms.entity.model.College;
+import app.lifeni.bms.entity.model.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface CollegeDao {
-    List<College> queryAllColleges();
+public interface RoleDao {
+    List<Role> queryAllRoles();
 
-    College queryCollegeById(@Param("collegeId") long collegeId);
+    Role queryRoleById(@Param("roleId") long roleId);
 }
