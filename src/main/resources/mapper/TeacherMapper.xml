@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.lifeni.bms.dao.TeacherDao">
+
+    <select id="queryAllTeachers" resultType="app.lifeni.bms.entity.model.Teacher">
+        select *
+        from `teacher`
+    </select>
+
+    <insert id="addTeacher">
+        insert into `teacher`(userId, userName, sex, birthYear, degree, title, grade, collegeId)
+        VALUES (#{teacher.userId}, #{teacher.userName}, #{teacher.sex}, #{teacher.birthYear},
+                #{teacher.degree}, #{teacher.title}, #{teacher.grade}, #{teacher.collegeId})
+    </insert>
+
+    <update id="editTeacher">
+        update `teacher`
+        set userName  = #{teacher.userName},
+            sex       = #{teacher.sex},
+            birthYear = #{teacher.birthYear},
+            degree    = #{teacher.degree},
+            title     = #{teacher.title},
+            grade     = #{teacher.grade},
+            collegeId = #{teacher.collegeId}
+        where userId = #{userId}
+    </update>
+
+    <delete id="deleteTeacher">
+        delete
+        from `teacher`
+        where userId = #{userId}
+    </delete>
+</mapper>

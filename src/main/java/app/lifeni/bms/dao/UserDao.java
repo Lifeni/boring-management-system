@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserDao {
     List<UserLogin> queryAllUsers();
 
+    int addUser(@Param("userName") String userName, @Param("roleId") long roleId);
+
     int resetPasswordByAdmin(@Param("userId") long userId, @Param("password") String password);
 
     int deleteUser(@Param("userId") long userId);

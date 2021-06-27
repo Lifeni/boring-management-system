@@ -7,6 +7,11 @@
         from `user-login`
     </select>
 
+    <insert id="addUser">
+        insert into `user-login`(userName, password, role)
+        VALUES (#{userName}, #{userName}, #{roleId})
+    </insert>
+
     <update id="resetPasswordByAdmin">
         update `user-login`
         set password = #{password}

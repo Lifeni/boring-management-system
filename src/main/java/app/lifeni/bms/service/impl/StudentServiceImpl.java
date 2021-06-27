@@ -2,6 +2,7 @@ package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.CollegeDao;
 import app.lifeni.bms.dao.StudentDao;
+import app.lifeni.bms.dao.UserDao;
 import app.lifeni.bms.entity.api.request.EditStudentRequest;
 import app.lifeni.bms.entity.api.response.StudentInfoResponse;
 import app.lifeni.bms.entity.model.Student;
@@ -15,6 +16,9 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentDao studentDao;
+
+    @Autowired
+    UserDao userDao;
 
     @Autowired
     CollegeDao collegeDao;
@@ -43,8 +47,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean addStudent(Student student) {
-        var result = studentDao.addStudent(student);
-        return result > 0;
+        var studentResult = studentDao.addStudent(student);
+        var userResult = userDao.addUser(Long.toString(student.getUserId()), 2);
+        return studentResult > 0 && userResult > 0;
     }
 
     @Override
