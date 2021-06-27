@@ -7,6 +7,12 @@
         from `user-login`
     </select>
 
+    <select id="queryUser" resultType="app.lifeni.bms.entity.model.User">
+        select *
+        from `user-login`
+        where userId = #{userId}
+    </select>
+
     <insert id="addUser">
         insert into `user-login`(userName, password, role)
         VALUES (#{userName}, #{userName}, #{roleId})
@@ -22,5 +28,11 @@
         delete
         from `user-login`
         where userId = #{userId}
+    </delete>
+
+    <delete id="removeUserByName">
+        delete
+        from `user-login`
+        where userName = #{userName}
     </delete>
 </mapper>

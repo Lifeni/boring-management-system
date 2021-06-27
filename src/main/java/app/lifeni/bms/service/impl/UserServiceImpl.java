@@ -1,6 +1,8 @@
 package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.RoleDao;
+import app.lifeni.bms.dao.StudentDao;
+import app.lifeni.bms.dao.TeacherDao;
 import app.lifeni.bms.dao.UserDao;
 import app.lifeni.bms.entity.api.request.ResetPasswordByAdminRequest;
 import app.lifeni.bms.entity.api.response.UserInfoResponse;
@@ -15,6 +17,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    StudentDao studentDao;
+
+    @Autowired
+    TeacherDao teacherDao;
 
     @Autowired
     RoleDao roleDao;
@@ -50,7 +58,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean removeUser(long userId) {
-        var result = userDao.removeUser(userId);
-        return result > 0;
+        var user = userDao.queryUser(userId);
+        switch (Math.toIntExact(user.getRole())) {
+            case 1 -> teacherDao.removeTeacher(Long.parseLong(user.getUserName()));
+            case 2 -> studentDao.removeStudent(Long.parseLong(user.getUserName()));
+        }
+        var userResult = userDao.removeUser(userId);
+        return userResult > 0;
     }
 }

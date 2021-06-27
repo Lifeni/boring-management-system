@@ -60,9 +60,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean removeStudent(long userId) {
-        var result = studentDao.removeStudent(userId);
-        return result > 0;
+        var studentResult = studentDao.removeStudent(userId);
+        userDao.removeUserByName(Long.toString(userId));
+        return studentResult > 0;
     }
-
-
 }
