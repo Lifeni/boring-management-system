@@ -25,7 +25,7 @@
         where userId = #{userId}
     </update>
 
-    <delete id="deleteTeacher">
+    <delete id="removeTeacher">
         delete
         from `teacher`
         where userId = #{userId}

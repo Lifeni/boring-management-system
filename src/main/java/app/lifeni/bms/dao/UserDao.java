@@ -16,5 +16,5 @@ public interface UserDao {
 
     int resetPasswordByAdmin(@Param("userId") long userId, @Param("password") String password);
 
-    int deleteUser(@Param("userId") long userId);
+    int removeUser(@Param("userId") long userId);
 }

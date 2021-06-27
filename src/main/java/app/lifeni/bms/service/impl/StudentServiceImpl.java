@@ -59,8 +59,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean deleteStudent(long userId) {
-        var result = studentDao.deleteStudent(userId);
+    public boolean removeStudent(long userId) {
+        var result = studentDao.removeStudent(userId);
         return result > 0;
     }
 

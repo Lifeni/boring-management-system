@@ -18,7 +18,7 @@
         where userId = #{userId}
     </update>
 
-    <delete id="deleteUser">
+    <delete id="removeUser">
         delete
         from `user-login`
         where userId = #{userId}

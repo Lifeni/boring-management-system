@@ -17,6 +17,6 @@ public interface StudentDao {
 
     int editStudent(@Param("userId") long userId, @Param("student") EditStudentRequest student);
 
-    int deleteStudent(long userId);
+    int removeStudent(long userId);
 
 }

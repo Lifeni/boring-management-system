@@ -66,10 +66,10 @@ public class StudentController {
     }
 
     @DeleteMapping("/{userId}")
-    public JsonNode deleteStudent(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+    public JsonNode removeStudent(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 0) {
-            var result = studentService.deleteStudent(userId);
+            var result = studentService.removeStudent(userId);
             if (result) {
                 var message = new BaseMessage("删除学生成功");
                 response.setStatus(200);

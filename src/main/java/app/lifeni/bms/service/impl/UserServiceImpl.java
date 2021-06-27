@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(long userId) {
-        var result = userDao.deleteUser(userId);
+    public boolean removeUser(long userId) {
+        var result = userDao.removeUser(userId);
         return result > 0;
     }
 }

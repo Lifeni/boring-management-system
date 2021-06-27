@@ -10,5 +10,5 @@ public interface UserService {
 
     boolean resetPasswordByAdmin(long userId, ResetPasswordByAdminRequest password);
 
-    boolean deleteUser(long userId);
+    boolean removeUser(long userId);
 }

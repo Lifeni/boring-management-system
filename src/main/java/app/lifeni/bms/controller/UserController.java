@@ -49,10 +49,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public JsonNode deleteUser(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+    public JsonNode removeUser(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 0) {
-            var result = userService.deleteUser(userId);
+            var result = userService.removeUser(userId);
             if (result) {
                 var message = new BaseMessage("删除用户成功");
                 response.setStatus(200);

@@ -17,6 +17,6 @@ public interface TeacherDao {
 
     int editTeacher(@Param("userId") long userId, @Param("teacher") EditTeacherRequest teacher);
 
-    int deleteTeacher(long userId);
+    int removeTeacher(long userId);
 
 }

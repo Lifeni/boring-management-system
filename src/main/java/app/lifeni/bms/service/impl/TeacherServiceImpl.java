@@ -60,8 +60,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean deleteTeacher(long userId) {
-        var result = teacherDao.deleteTeacher(userId);
+    public boolean removeTeacher(long userId) {
+        var result = teacherDao.removeTeacher(userId);
         return result > 0;
     }
 

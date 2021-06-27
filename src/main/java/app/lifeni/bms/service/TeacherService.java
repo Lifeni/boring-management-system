@@ -13,5 +13,5 @@ public interface TeacherService {
 
     boolean editTeacher(long userId, EditTeacherRequest payload);
 
-    boolean deleteTeacher(long userId);
+    boolean removeTeacher(long userId);
 }
