@@ -1,20 +1,20 @@
-package app.lifeni.bms.entity.model;
+package app.lifeni.bms.entity.api.request;
 
-public class Student {
+import java.sql.Date;
 
-    private long userId;
+public class EditStudentRequest {
     private String userName;
     private String sex;
     private java.sql.Date birthYear;
     private java.sql.Date grade;
     private long collegeId;
 
-    public long getUserId() {
-        return userId;
+    public long getCollegeId() {
+        return collegeId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setCollegeId(long collegeId) {
+        this.collegeId = collegeId;
     }
 
     public String getUserName() {
@@ -33,27 +33,19 @@ public class Student {
         this.sex = sex;
     }
 
-    public java.sql.Date getBirthYear() {
+    public Date getBirthYear() {
         return birthYear;
     }
 
-    public void setBirthYear(java.sql.Date birthYear) {
+    public void setBirthYear(Date birthYear) {
         this.birthYear = birthYear;
     }
 
-    public java.sql.Date getGrade() {
+    public Date getGrade() {
         return grade;
     }
 
-    public void setGrade(java.sql.Date grade) {
+    public void setGrade(Date grade) {
         this.grade = grade;
-    }
-
-    public long getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(long collegeId) {
-        this.collegeId = collegeId;
     }
 }

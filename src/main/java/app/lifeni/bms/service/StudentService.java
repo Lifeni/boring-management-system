@@ -1,16 +1,17 @@
 package app.lifeni.bms.service;
 
+import app.lifeni.bms.entity.api.request.EditStudentRequest;
 import app.lifeni.bms.entity.api.response.StudentInfoResponse;
+import app.lifeni.bms.entity.model.Student;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface StudentService {
     List<StudentInfoResponse> queryAllStudents();
 
-    boolean addStudent(long userId, String userName, String sex, Date birthYear, Date grade, long collegeId);
+    boolean addStudent(Student student);
 
-    boolean editStudent(String userName, String sex, Date birthYear, Date grade, long collegeId);
+    boolean editStudent(long userId, EditStudentRequest payload);
 
     boolean deleteStudent(long userId);
 }

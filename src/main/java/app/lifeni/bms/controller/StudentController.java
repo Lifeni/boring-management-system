@@ -1,7 +1,9 @@
 package app.lifeni.bms.controller;
 
+import app.lifeni.bms.entity.api.request.EditStudentRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
+import app.lifeni.bms.entity.model.Student;
 import app.lifeni.bms.service.StudentService;
 import app.lifeni.bms.utils.CookiesUtils;
 import app.lifeni.bms.utils.ErrorUtils;
@@ -28,6 +30,37 @@ public class StudentController {
             var message = new DataMessage("获取所有学生信息", students);
             response.setStatus(200);
             return JSON.t(message);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
+    @PostMapping("/")
+    public JsonNode addStudent(@RequestBody Student payload, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        if (role == 0) {
+            var result = studentService.addStudent(payload);
+            if (result) {
+                var message = new BaseMessage("添加学生成功");
+                response.setStatus(200);
+                return JSON.t(message);
+            }
+            return ErrorUtils.dbErrorHandler(response);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
+
+    @PutMapping("/{userId}")
+    public JsonNode editStudent(@PathVariable("userId") long userId, @RequestBody EditStudentRequest payload, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        if (role == 0) {
+            var result = studentService.editStudent(userId, payload);
+            if (result) {
+                var message = new BaseMessage("修改学生信息成功");
+                response.setStatus(200);
+                return JSON.t(message);
+            }
+            return ErrorUtils.dbErrorHandler(response);
         }
         return ErrorUtils.authErrorHandler(response, role);
     }

@@ -9,16 +9,17 @@
 
     <insert id="addStudent">
         insert into `student`(userId, userName, sex, birthYear, grade, collegeId)
-        VALUES (#{userId}, #{userName}, #{sex}, #{birthYear}, #{grade}, #{collegeId})
+        VALUES (#{student.userId}, #{student.userName}, #{student.sex}, #{student.birthYear}, #{student.grade},
+                #{student.collegeId})
     </insert>
 
     <update id="editStudent">
         update `student`
-        set userName  = #{userName},
-            sex       = #{sex},
-            birthYear = #{birthYear},
-            grade     = #{grade},
-            collegeId = #{collegeId}
+        set userName  = #{student.userName},
+            sex       = #{student.sex},
+            birthYear = #{student.birthYear},
+            grade     = #{student.grade},
+            collegeId = #{student.collegeId}
         where userId = #{userId}
     </update>
 
