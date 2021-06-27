@@ -5,6 +5,7 @@ import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.service.UserService;
 import app.lifeni.bms.utils.CookiesUtils;
+import app.lifeni.bms.utils.ErrorUtils;
 import app.lifeni.bms.utils.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,8 @@ public class UserController {
             var message = new DataMessage("获取所有用户", users);
             response.setStatus(200);
             return JSON.t(message);
-
-        } else if (role == -1) {
-            var message = new BaseMessage("身份认证失效");
-            response.setStatus(401);
-            return JSON.t(message);
         }
-
-        var message = new BaseMessage("身份验证失败");
-        response.setStatus(403);
-        return JSON.t(message);
+        return ErrorUtils.authErrorHandler(response, role);
     }
 
     @PostMapping("/{userId}/reset-password")
@@ -50,20 +43,9 @@ public class UserController {
                 response.setStatus(200);
                 return JSON.t(message);
             }
-
-            var message = new BaseMessage("服务器出错");
-            response.setStatus(500);
-            return JSON.t(message);
-
-        } else if (role == -1) {
-            var message = new BaseMessage("身份认证失效");
-            response.setStatus(401);
-            return JSON.t(message);
+            return ErrorUtils.dbErrorHandler(response);
         }
-
-        var message = new BaseMessage("身份验证失败");
-        response.setStatus(403);
-        return JSON.t(message);
+        return ErrorUtils.authErrorHandler(response, role);
     }
 
     @DeleteMapping("/{userId}")
@@ -76,19 +58,8 @@ public class UserController {
                 response.setStatus(200);
                 return JSON.t(message);
             }
-
-            var message = new BaseMessage("服务器出错");
-            response.setStatus(500);
-            return JSON.t(message);
-
-        } else if (role == -1) {
-            var message = new BaseMessage("身份认证失效");
-            response.setStatus(401);
-            return JSON.t(message);
+            return ErrorUtils.dbErrorHandler(response);
         }
-
-        var message = new BaseMessage("身份验证失败");
-        response.setStatus(403);
-        return JSON.t(message);
+        return ErrorUtils.authErrorHandler(response, role);
     }
 }

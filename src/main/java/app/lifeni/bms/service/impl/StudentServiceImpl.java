@@ -7,6 +7,7 @@ import app.lifeni.bms.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -37,4 +38,24 @@ public class StudentServiceImpl implements StudentService {
             return null;
         }).toList();
     }
+
+    @Override
+    public boolean addStudent(long userId, String userName, String sex, Date birthYear, Date grade, long collegeId) {
+        var result = studentDao.addStudent(userId, userName, sex, birthYear, grade, collegeId);
+        return result > 0;
+    }
+
+    @Override
+    public boolean editStudent(String userName, String sex, Date birthYear, Date grade, long collegeId) {
+        var result = studentDao.editStudent(userName, sex, birthYear, grade, collegeId);
+        return result > 0;
+    }
+
+    @Override
+    public boolean deleteStudent(long userId) {
+        var result = studentDao.deleteStudent(userId);
+        return result > 0;
+    }
+
+
 }

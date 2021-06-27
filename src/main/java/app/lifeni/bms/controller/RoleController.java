@@ -1,7 +1,7 @@
 package app.lifeni.bms.controller;
 
 import app.lifeni.bms.entity.message.DataMessage;
-import app.lifeni.bms.service.CollegeService;
+import app.lifeni.bms.service.RoleService;
 import app.lifeni.bms.utils.CookiesUtils;
 import app.lifeni.bms.utils.ErrorUtils;
 import app.lifeni.bms.utils.JSON;
@@ -15,18 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/colleges")
-public class CollegeController {
+@RequestMapping("/api/roles")
+public class RoleController {
 
     @Autowired
-    private CollegeService collegeService;
+    RoleService roleService;
 
     @GetMapping("/")
-    public JsonNode getAll(HttpServletRequest request, HttpServletResponse response) {
+    public JsonNode getAllRoles(HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 0) {
-            var colleges = collegeService.queryAllColleges();
-            var message = new DataMessage("获取院系列表", colleges);
+            var roles = roleService.queryAllRoles();
+            var message = new DataMessage("获取用户角色列表", roles);
             response.setStatus(200);
             return JSON.t(message);
         }

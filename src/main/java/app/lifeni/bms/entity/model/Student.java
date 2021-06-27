@@ -1,21 +1,33 @@
 package app.lifeni.bms.entity.model;
 
+import java.sql.Date;
+
 public class Student {
 
-  private long userId;
-  private String userName;
-  private String sex;
-  private java.sql.Date birthYear;
-  private java.sql.Date grade;
-  private long collegeId;
+    private long userId;
+    private String userName;
+    private String sex;
+    private java.sql.Date birthYear;
+    private java.sql.Date grade;
 
-  public long getUserId() {
-    return userId;
-  }
+    public Student(long userId, String userName, String sex, Date birthYear, Date grade, long collegeId) {
+        this.userId = userId;
+        this.userName = userName;
+        this.sex = sex;
+        this.birthYear = birthYear;
+        this.grade = grade;
+        this.collegeId = collegeId;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    private long collegeId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
   public String getUserName() {
     return userName;

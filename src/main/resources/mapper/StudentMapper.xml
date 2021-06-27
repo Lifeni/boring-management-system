@@ -7,6 +7,21 @@
         from `student`
     </select>
 
+    <insert id="addStudent">
+        insert into `student`(userId, userName, sex, birthYear, grade, collegeId)
+        VALUES (#{userId}, #{userName}, #{sex}, #{birthYear}, #{grade}, #{collegeId})
+    </insert>
+
+    <update id="editStudent">
+        update `student`
+        set userName  = #{userName},
+            sex       = #{sex},
+            birthYear = #{birthYear},
+            grade     = #{grade},
+            collegeId = #{collegeId}
+        where userId = #{userId}
+    </update>
+
     <delete id="deleteStudent">
         delete
         from `student`

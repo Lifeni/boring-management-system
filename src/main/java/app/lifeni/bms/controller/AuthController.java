@@ -5,10 +5,7 @@ import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.service.AuthService;
-import app.lifeni.bms.utils.Constants;
-import app.lifeni.bms.utils.CookiesUtils;
-import app.lifeni.bms.utils.JSON;
-import app.lifeni.bms.utils.JWTUtils;
+import app.lifeni.bms.utils.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +33,10 @@ public class AuthController {
                 response.setStatus(200);
                 return JSON.t(message);
             } catch (Exception exception) {
-                var message = new BaseMessage("服务器出错");
-
-                response.setStatus(500);
-                return JSON.t(message);
+                return ErrorUtils.dbErrorHandler(response);
             }
         } else {
             var message = new BaseMessage("登录失效");
-
             response.setStatus(401);
             return JSON.t(message);
         }
