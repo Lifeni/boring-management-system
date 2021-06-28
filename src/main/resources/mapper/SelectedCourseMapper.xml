@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.lifeni.bms.dao.SelectedCourseDao">
+
+    <select id="queryAllSelectedCourses" resultType="app.lifeni.bms.entity.model.SelectedCourse">
+        select *
+        from `selected-course`
+    </select>
+
+    <select id="querySelectedCourseById" resultType="app.lifeni.bms.entity.model.SelectedCourse">
+        select *
+        from `selected-course`
+        where courseId = #{courseId}
+    </select>
+
+    <select id="querySelectedCourseByStudent" resultType="app.lifeni.bms.entity.model.SelectedCourse">
+        select *
+        from `selected-course`
+        where studentId = #{studentId}
+    </select>
+
+</mapper>

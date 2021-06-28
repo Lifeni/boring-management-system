@@ -2,12 +2,15 @@ package app.lifeni.bms.service;
 
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
 import app.lifeni.bms.entity.api.response.CourseInfoResponse;
+import app.lifeni.bms.entity.api.response.StudentCourseResponse;
 import app.lifeni.bms.entity.model.Course;
 
 import java.util.List;
 
 public interface CourseService {
     List<CourseInfoResponse> queryAllCourses();
+
+    List<StudentCourseResponse> queryStudentCourse(long userId);
 
     String queryCourseById(long courseId);
 

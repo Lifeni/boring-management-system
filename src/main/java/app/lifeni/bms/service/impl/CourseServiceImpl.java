@@ -1,10 +1,9 @@
 package app.lifeni.bms.service.impl;
 
-import app.lifeni.bms.dao.CollegeDao;
-import app.lifeni.bms.dao.CourseDao;
-import app.lifeni.bms.dao.TeacherDao;
+import app.lifeni.bms.dao.*;
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
 import app.lifeni.bms.entity.api.response.CourseInfoResponse;
+import app.lifeni.bms.entity.api.response.StudentCourseResponse;
 import app.lifeni.bms.entity.model.Course;
 import app.lifeni.bms.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     CollegeDao collegeDao;
+
+    @Autowired
+    SelectedCourseDao selectedCourseDao;
+
+    @Autowired
+    UserDao userDao;
 
     @Override
     public List<CourseInfoResponse> queryAllCourses() {
@@ -53,6 +58,36 @@ public class CourseServiceImpl implements CourseService {
                     course.getTeacherId(), teacherName, course.getCourseTime(),
                     course.getClassRoom(), course.getCourseWeek(), course.getCourseType(),
                     course.getCollegeId(), collegeName, course.getScore());
+        }).toList();
+    }
+
+    @Override
+    public List<StudentCourseResponse> queryStudentCourse(long userId) {
+        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
+        var preCourses = queryAllCourses();
+        var selectedCourses = selectedCourseDao.querySelectedCourseByStudent(userName);
+
+        return preCourses.stream().map(course -> {
+            var isSelected = false;
+            var isFinished = false;
+            var mark = 0L;
+            var selected = selectedCourses.stream()
+                    .filter(c -> c.getCourseId() == course.getCourseId())
+                    .findFirst();
+            if (selected.isPresent()) {
+                isSelected = true;
+                var sc = selected.get();
+                if (sc.getMark() != 0) {
+                    isFinished = true;
+                    mark = sc.getMark();
+                }
+            }
+
+            return new StudentCourseResponse(course.getCourseId(), course.getCourseName(),
+                    course.getTeacherId(), course.getTeacherName(), course.getCourseTime(),
+                    course.getClassRoom(), course.getCourseWeek(), course.getCourseType(),
+                    course.getCollegeId(), course.getCollegeName(), course.getScore(),
+                    isSelected, isFinished, mark);
         }).toList();
     }
 

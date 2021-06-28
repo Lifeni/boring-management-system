@@ -34,6 +34,19 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
+    @GetMapping("/student/{userId}")
+    public JsonNode getStudentCourse(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        var id = CookiesUtils.verifyReturnId(request);
+        if (role == 2 && id == userId) {
+            var courses = courseService.queryStudentCourse(userId);
+            var message = new DataMessage("获取学生课程及成绩列表", courses);
+            response.setStatus(200);
+            return JSON.t(message);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
     @PostMapping("/")
     public JsonNode addCourse(@RequestBody Course payload, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
