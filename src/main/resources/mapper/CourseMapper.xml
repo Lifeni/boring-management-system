@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.lifeni.bms.dao.CourseDao">
+
+    <select id="queryAllCourses" resultType="app.lifeni.bms.entity.model.Course">
+        select *
+        from `course`
+    </select>
+
+    <select id="queryCourseById" resultType="app.lifeni.bms.entity.model.Course">
+        select *
+        from `course`
+        where courseId = #{courseId}
+    </select>
+
+    <insert id="addCourse">
+        insert into `course`(courseId, courseName, teacherId, courseTime, classRoom,
+                             courseWeek, courseType, collegeId, score)
+        VALUES (#{course.courseId}, #{course.courseName}, #{course.teacherId},
+                #{course.courseTime}, #{course.classRoom}, #{course.courseWeek},
+                #{course.courseType}, #{course.collegeId}, #{course.score})
+    </insert>
+
+    <update id="editCourse">
+        update `course`
+        set courseName = #{course.courseName},
+            teacherId  = #{course.teacherId},
+            courseTime = #{course.courseTime},
+            classRoom  = #{course.classRoom},
+            courseWeek = #{course.courseWeek},
+            courseType = #{course.courseType},
+            collegeId  = #{course.collegeId},
+            score      = #{course.score}
+        where courseId = #{courseId}
+    </update>
+
+    <delete id="removeCourse">
+        delete
+        from `course`
+        where courseId = #{courseId}
+    </delete>
+
+</mapper>

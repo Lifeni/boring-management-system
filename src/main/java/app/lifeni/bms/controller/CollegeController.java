@@ -24,7 +24,7 @@ public class CollegeController {
     @GetMapping("/")
     public JsonNode getAll(HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
-        if (role == 0) {
+        if (role == 0 || role == 1 || role == 2) {
             var colleges = collegeService.queryAllColleges();
             var message = new DataMessage("获取院系列表", colleges);
             response.setStatus(200);
