@@ -13,6 +13,8 @@ import java.util.List;
 public interface TeacherDao {
     List<Teacher> queryAllTeachers();
 
+    Teacher queryTeacherById(long userId);
+
     int addTeacher(@Param("teacher") Teacher teacher);
 
     int editTeacher(@Param("userId") long userId, @Param("teacher") EditTeacherRequest teacher);
