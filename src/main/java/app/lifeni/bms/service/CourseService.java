@@ -1,6 +1,7 @@
 package app.lifeni.bms.service;
 
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
+import app.lifeni.bms.entity.api.request.MarkCourseRequest;
 import app.lifeni.bms.entity.api.response.CourseInfoResponse;
 import app.lifeni.bms.entity.api.response.StudentCourseResponse;
 import app.lifeni.bms.entity.model.Course;
@@ -16,7 +17,13 @@ public interface CourseService {
 
     boolean addCourse(Course course);
 
-    boolean editCourse(long userId, EditCourseRequest payload);
+    boolean markCourse(long courseId, long userId, MarkCourseRequest payload);
 
-    boolean removeCourse(long userId);
+    boolean selectCourse(long courseId, long userId);
+
+    boolean unselectCourse(long courseId, long userId);
+
+    boolean editCourse(long courseId, EditCourseRequest payload);
+
+    int removeCourse(long courseId);
 }

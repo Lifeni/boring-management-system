@@ -19,4 +19,31 @@
         where studentId = #{studentId}
     </select>
 
+    <select id="queryCourseMark" resultType="app.lifeni.bms.entity.model.SelectedCourse">
+        select *
+        from `selected-course`
+        where courseId = #{courseId}
+          and studentId = #{studentId}
+    </select>
+
+
+    <update id="markCourse">
+        update `selected-course`
+        set mark = #{mark}
+        where courseId = #{courseId}
+          and studentId = #{studentId}
+    </update>
+
+    <insert id="selectCourse">
+        insert into `selected-course`(courseId, studentId)
+        values (#{courseId}, #{studentId})
+    </insert>
+
+    <delete id="unselectCourse">
+        delete
+        from `selected-course`
+        where courseId = #{courseId}
+          and studentId = #{studentId}
+    </delete>
+
 </mapper>

@@ -2,6 +2,7 @@ package app.lifeni.bms.service.impl;
 
 import app.lifeni.bms.dao.*;
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
+import app.lifeni.bms.entity.api.request.MarkCourseRequest;
 import app.lifeni.bms.entity.api.response.CourseInfoResponse;
 import app.lifeni.bms.entity.api.response.StudentCourseResponse;
 import app.lifeni.bms.entity.model.Course;
@@ -102,6 +103,32 @@ public class CourseServiceImpl implements CourseService {
         return result > 0;
     }
 
+    @Override
+    public boolean markCourse(long courseId, long userId, MarkCourseRequest payload) {
+        var mark = payload.getMark();
+        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
+        var result = selectedCourseDao.markCourse(courseId, userName, mark);
+        return result > 0;
+    }
+
+    @Override
+    public boolean selectCourse(long courseId, long userId) {
+        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
+        var result = selectedCourseDao.selectCourse(courseId, userName);
+        return result > 0;
+    }
+
+    @Override
+    public boolean unselectCourse(long courseId, long userId) {
+        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
+        var mark = selectedCourseDao.queryCourseMark(courseId, userId);
+        if (mark != null) {
+            return false;
+        }
+
+        var result = selectedCourseDao.unselectCourse(courseId, userName);
+        return result > 0;
+    }
 
     @Override
     public boolean editCourse(long courseId, EditCourseRequest payload) {
@@ -110,9 +137,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean removeCourse(long courseId) {
-        // TODO: 不能删除已选课的课程
-        var result = courseDao.removeCourse(courseId);
-        return result > 0;
+    public int removeCourse(long courseId) {
+        var courses = selectedCourseDao.querySelectedCourseById(courseId);
+        if (!courses.isEmpty()) {
+            return -1;
+        }
+        return courseDao.removeCourse(courseId);
     }
 }

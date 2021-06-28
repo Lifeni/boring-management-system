@@ -1,6 +1,7 @@
 package app.lifeni.bms.controller;
 
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
+import app.lifeni.bms.entity.api.request.MarkCourseRequest;
 import app.lifeni.bms.entity.message.BaseMessage;
 import app.lifeni.bms.entity.message.DataMessage;
 import app.lifeni.bms.entity.model.Course;
@@ -34,7 +35,7 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
-    @GetMapping("/student/{userId}")
+    @GetMapping("/students/{userId}")
     public JsonNode getStudentCourse(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         var id = CookiesUtils.verifyReturnId(request);
@@ -53,7 +54,7 @@ public class CourseController {
         if (role == 0) {
             var result = courseService.addCourse(payload);
             if (result) {
-                var message = new BaseMessage("添加教师成功");
+                var message = new BaseMessage("添加课程成功");
                 response.setStatus(200);
                 return JSON.t(message);
             }
@@ -63,13 +64,13 @@ public class CourseController {
     }
 
 
-    @PutMapping("/{userId}")
-    public JsonNode editCourse(@PathVariable("userId") long userId, @RequestBody EditCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
+    @PutMapping("/{courseId}")
+    public JsonNode editCourse(@PathVariable("courseId") long courseId, @RequestBody EditCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 0) {
-            var result = courseService.editCourse(userId, payload);
+            var result = courseService.editCourse(courseId, payload);
             if (result) {
-                var message = new BaseMessage("修改教师信息成功");
+                var message = new BaseMessage("修改课程信息成功");
                 response.setStatus(200);
                 return JSON.t(message);
             }
@@ -78,13 +79,64 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
-    @DeleteMapping("/{userId}")
-    public JsonNode removeCourse(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+    @PatchMapping("/{courseId}/students/{userId}/mark")
+    public JsonNode markCourse(@PathVariable("courseId") long courseId, @PathVariable("userId") long userId, @RequestBody MarkCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        if (role == 1) {
+            var result = courseService.markCourse(courseId, userId, payload);
+            if (result) {
+                var message = new BaseMessage("打分成功");
+                response.setStatus(200);
+                return JSON.t(message);
+            }
+            return ErrorUtils.dbErrorHandler(response);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
+    @PutMapping("/{courseId}/students/{userId}")
+    public JsonNode selectCourse(@PathVariable("courseId") long courseId, @PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        var id = CookiesUtils.verifyReturnId(request);
+        if (role == 2 && id == userId) {
+            var result = courseService.selectCourse(courseId, userId);
+            if (result) {
+                var message = new BaseMessage("选课成功");
+                response.setStatus(200);
+                return JSON.t(message);
+            }
+            return ErrorUtils.dbErrorHandler(response);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
+    @DeleteMapping("/{courseId}")
+    public JsonNode removeCourse(@PathVariable("courseId") long courseId, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 0) {
-            var result = courseService.removeCourse(userId);
+            var result = courseService.removeCourse(courseId);
+            if (result > 0) {
+                var message = new BaseMessage("删除课程成功");
+                response.setStatus(200);
+                return JSON.t(message);
+            } else if (result == -1) {
+                var message = new BaseMessage("课程已有学生选课，不允许删除");
+                response.setStatus(250);
+                return JSON.t(message);
+            }
+            return ErrorUtils.dbErrorHandler(response);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
+    @DeleteMapping("/{courseId}/students/{userId}")
+    public JsonNode unselectCourse(@PathVariable("courseId") long courseId, @PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        var id = CookiesUtils.verifyReturnId(request);
+        if (role == 2 && id == userId) {
+            var result = courseService.unselectCourse(courseId, userId);
             if (result) {
-                var message = new BaseMessage("删除教师成功");
+                var message = new BaseMessage("取消选课成功");
                 response.setStatus(200);
                 return JSON.t(message);
             }

@@ -15,4 +15,12 @@ public interface SelectedCourseDao {
     List<SelectedCourse> querySelectedCourseById(@Param("courseId") long courseId);
 
     List<SelectedCourse> querySelectedCourseByStudent(@Param("studentId") long studentId);
+
+    SelectedCourse queryCourseMark(@Param("courseId") long courseId, @Param("studentId") long studentId);
+
+    int markCourse(@Param("courseId") long courseId, @Param("studentId") long studentId, @Param("mark") long mark);
+
+    int selectCourse(@Param("courseId") long courseId, @Param("studentId") long studentId);
+
+    int unselectCourse(@Param("courseId") long courseId, @Param("studentId") long studentId);
 }
