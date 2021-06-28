@@ -4,6 +4,7 @@ import app.lifeni.bms.dao.*;
 import app.lifeni.bms.entity.api.request.EditCourseRequest;
 import app.lifeni.bms.entity.api.request.MarkCourseRequest;
 import app.lifeni.bms.entity.api.response.CourseInfoResponse;
+import app.lifeni.bms.entity.api.response.CourseStudentListResponse;
 import app.lifeni.bms.entity.api.response.StudentCourseResponse;
 import app.lifeni.bms.entity.model.Course;
 import app.lifeni.bms.service.CourseService;
@@ -28,6 +29,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    StudentDao studentDao;
 
     @Override
     public List<CourseInfoResponse> queryAllCourses() {
@@ -93,8 +97,32 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<CourseInfoResponse> queryTeacherCourse(long userId) {
+        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
+        var preCourses = queryAllCourses();
+
+        return preCourses.stream().filter(course -> course.getTeacherId() == userName).map(course -> new CourseInfoResponse(course.getCourseId(), course.getCourseName(),
+                course.getTeacherId(), course.getTeacherName(), course.getCourseTime(),
+                course.getClassRoom(), course.getCourseWeek(), course.getCourseType(),
+                course.getCollegeId(), course.getCollegeName(), course.getScore()
+        )).toList();
+    }
+
+    @Override
     public String queryCourseById(long courseId) {
         return courseDao.queryCourseById(courseId).getCourseName();
+    }
+
+    @Override
+    public List<CourseStudentListResponse> getCourseStudentList(long courseId) {
+        var courses = selectedCourseDao.querySelectedCourseById(courseId);
+
+        return courses.stream().map(course -> {
+            var student = studentDao.queryStudent(course.getStudentId());
+            var isMarked = course.getMark();
+            return new CourseStudentListResponse(student.getUserId(),
+                    student.getUserName(), course.getMark(), isMarked != 0);
+        }).toList();
     }
 
     @Override
@@ -104,10 +132,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean markCourse(long courseId, long userId, MarkCourseRequest payload) {
+    public boolean markCourse(long courseId, long studentId, MarkCourseRequest payload) {
         var mark = payload.getMark();
-        var userName = Long.parseLong(userDao.queryUser(userId).getUserName());
-        var result = selectedCourseDao.markCourse(courseId, userName, mark);
+        var result = selectedCourseDao.markCourse(courseId, studentId, mark);
         return result > 0;
     }
 
@@ -144,4 +171,5 @@ public class CourseServiceImpl implements CourseService {
         }
         return courseDao.removeCourse(courseId);
     }
+
 }

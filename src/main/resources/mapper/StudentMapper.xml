@@ -7,6 +7,12 @@
         from `student`
     </select>
 
+    <select id="queryStudent" resultType="app.lifeni.bms.entity.model.Student">
+        select *
+        from `student`
+        where userId = #{studentId}
+    </select>
+
     <insert id="addStudent">
         insert into `student`(userId, userName, sex, birthYear, grade, collegeId)
         VALUES (#{student.userId}, #{student.userName}, #{student.sex}, #{student.birthYear}, #{student.grade},

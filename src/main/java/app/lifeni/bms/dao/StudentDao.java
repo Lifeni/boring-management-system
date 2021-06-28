@@ -19,4 +19,5 @@ public interface StudentDao {
 
     int removeStudent(long userId);
 
+    Student queryStudent(@Param("studentId") long studentId);
 }

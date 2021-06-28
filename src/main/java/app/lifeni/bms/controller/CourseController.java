@@ -48,6 +48,19 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
+    @GetMapping("/teachers/{userId}")
+    public JsonNode getTeacherCourse(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        var id = CookiesUtils.verifyReturnId(request);
+        if (role == 1 && id == userId) {
+            var courses = courseService.queryTeacherCourse(userId);
+            var message = new DataMessage("获取教师所教的课程", courses);
+            response.setStatus(200);
+            return JSON.t(message);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
+
     @PostMapping("/")
     public JsonNode addCourse(@RequestBody Course payload, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
@@ -63,6 +76,17 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
+    @GetMapping("/{courseId}/students")
+    public JsonNode getCourseStudentList(@PathVariable("courseId") long courseId, HttpServletRequest request, HttpServletResponse response) {
+        var role = CookiesUtils.verifyReturnRole(request);
+        if (role == 1) {
+            var students = courseService.getCourseStudentList(courseId);
+            var message = new DataMessage("获取课程选课学生列表", students);
+            response.setStatus(200);
+            return JSON.t(message);
+        }
+        return ErrorUtils.authErrorHandler(response, role);
+    }
 
     @PutMapping("/{courseId}")
     public JsonNode editCourse(@PathVariable("courseId") long courseId, @RequestBody EditCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
@@ -79,11 +103,11 @@ public class CourseController {
         return ErrorUtils.authErrorHandler(response, role);
     }
 
-    @PatchMapping("/{courseId}/students/{userId}/mark")
-    public JsonNode markCourse(@PathVariable("courseId") long courseId, @PathVariable("userId") long userId, @RequestBody MarkCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
+    @PatchMapping("/{courseId}/students/{studentId}/mark")
+    public JsonNode markCourse(@PathVariable("courseId") long courseId, @PathVariable("studentId") long studentId, @RequestBody MarkCourseRequest payload, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
         if (role == 1) {
-            var result = courseService.markCourse(courseId, userId, payload);
+            var result = courseService.markCourse(courseId, studentId, payload);
             if (result) {
                 var message = new BaseMessage("打分成功");
                 response.setStatus(200);
