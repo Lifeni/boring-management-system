@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,6 +40,12 @@ public class UserController {
         if (role == 0) {
             var result = userService.resetPasswordByAdmin(userId, payload);
             if (result) {
+                var cookie = new Cookie("token", null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+
+                response.addCookie(cookie);
+
                 var message = new BaseMessage("重置密码成功");
                 response.setStatus(200);
                 return JSON.t(message);
@@ -51,9 +58,16 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public JsonNode removeUser(@PathVariable("userId") long userId, HttpServletRequest request, HttpServletResponse response) {
         var role = CookiesUtils.verifyReturnRole(request);
-        if (role == 0) {
+        var id = CookiesUtils.verifyReturnId(request);
+        if (role == 0 || ((role == 1 || role == 2) && id == userId)) {
             var result = userService.removeUser(userId);
             if (result) {
+                var cookie = new Cookie("token", null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+
+                response.addCookie(cookie);
+
                 var message = new BaseMessage("删除用户成功");
                 response.setStatus(200);
                 return JSON.t(message);
