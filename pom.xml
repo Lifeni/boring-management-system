@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>boring-management-system</name>
-    <description>Demo project for Spring Boot</description>
+    <description>一个教务管理系统</description>
     <properties>
         <java.version>16</java.version>
     </properties>
