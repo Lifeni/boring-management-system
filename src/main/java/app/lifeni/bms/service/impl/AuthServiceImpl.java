@@ -6,6 +6,7 @@ import app.lifeni.bms.entity.api.request.LoginRequest;
 import app.lifeni.bms.entity.api.request.ResetPasswordRequest;
 import app.lifeni.bms.entity.api.response.UserInfoResponse;
 import app.lifeni.bms.service.AuthService;
+import app.lifeni.bms.utils.SHAUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserInfoResponse authLogin(LoginRequest payload) {
         var username = payload.getUsername();
-        var password = payload.getPassword();
+        var password = SHAUtils.SHA256(payload.getPassword());
 
         var user = authDao.verifyUserByName(username, password);
 
@@ -53,8 +54,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean authResetPassword(ResetPasswordRequest payload) {
         var userId = payload.getUserId();
-        var oldPassword = payload.getOldPassword();
-        var newPassword = payload.getNewPassword();
+        var oldPassword = SHAUtils.SHA256(payload.getOldPassword());
+        var newPassword = SHAUtils.SHA256(payload.getNewPassword());
 
         var user = authDao.resetUserPasswordById(userId, oldPassword, newPassword);
 
