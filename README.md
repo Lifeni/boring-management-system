@@ -74,13 +74,13 @@
 
 </details>
 
-<small>* 截图中网页字体为 HarmonyOS Sans</small>
+
+<sub>* 截图中网页字体为 HarmonyOS Sans</sub>
 <br />
-<small>** 首页背景图片 Photo
-by <a href="https://unsplash.com/@ujitomo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">TOMOKO
-UJI</a>
-on <a href="https://unsplash.com/s/photos/sakura?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-Unsplash</a> </small>
+<sub>** 首页背景图片 Photo
+by [TOMOKO UJI]("https://unsplash.com/@ujitomo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText")
+on [Unsplash](https://unsplash.com/s/photos/sakura?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText") </sub>
+
 
 ## 常见问题
 
