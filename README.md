@@ -20,7 +20,67 @@
 
 ### 截图
 
-// TODO
+![主页](./screenshots/主页.png)
+
+更多截图点击下面的标题查看。
+
+<details>
+  <summary>登录和重置密码</summary>
+
+![登录](./screenshots/登录.png)
+
+![修改密码](./screenshots/修改密码.png)
+
+</details>
+
+<details>
+  <summary>管理员（课程、学生、教师和用户的增删改查）</summary>
+
+![课程管理（管理员）](./screenshots/课程管理（管理员）.png)
+
+![添加课程（管理员）](./screenshots/添加课程（管理员）.png)
+
+![教师管理（管理员）](./screenshots/教师管理（管理员）.png)
+
+![修改教师信息（管理员）](./screenshots/修改教师信息（管理员）.png)
+
+![学生管理（管理员）](./screenshots/学生管理（管理员）.png)
+
+![删除学生（管理员）](./screenshots/删除学生（管理员）.png)
+
+![用户管理（管理员）](./screenshots/用户管理（管理员）.png)
+
+![重置用户密码（管理员）](./screenshots/重置用户密码（管理员）.png)
+
+</details>
+
+<details>
+  <summary>教师（查看教的课程并打分）</summary>
+
+![教的课程](./screenshots/教的课程.png)
+
+![打分（教师）](./screenshots/打分（教师）.png)
+
+</details>
+
+<details>
+  <summary>学生（查看所有课程并选课、查看已选并退课、查看成绩）</summary>
+
+![全部课程（学生）](./screenshots/全部课程（学生）.png)
+
+![已选课程（学生）](./screenshots/已选课程（学生）.png)
+
+![已修完课程（学生）](./screenshots/已修完课程（学生）.png)
+
+</details>
+
+<small>* 截图中网页字体为 HarmonyOS Sans</small>
+<br />
+<small>** 首页背景图片 Photo
+by <a href="https://unsplash.com/@ujitomo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">TOMOKO
+UJI</a>
+on <a href="https://unsplash.com/s/photos/sakura?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+Unsplash</a> </small>
 
 ## 常见问题
 
