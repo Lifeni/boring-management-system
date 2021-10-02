@@ -103,7 +103,7 @@ on [Unsplash](https://unsplash.com/s/photos/sakura?utm_source=unsplash&utm_mediu
 
 包括但不限于 IDEA 提示「不支持发行版本」、项目启动不起来、连不上数据库等现象。
 
-**解决方法：** 确保 Java 为 16+，Tomcat 为 9+，MySQL为 5.7+，同时建议使用最新版的 Intellij IDEA 。
+**解决方法：** 确保 Java 为 16+，Tomcat 为 9+，MySQL为 5.7+，同时建议使用最新版的 IntelliJ IDEA 。
 
 ####            
 
